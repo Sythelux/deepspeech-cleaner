@@ -27,7 +27,7 @@
 #INTEGER    22. letters
 #INTEGER    23. lettersec
 #INTEGER    24. md5sum
-
+from tqdm import tqdm
 
 
 def update_db(all_wavdata,db):
@@ -40,7 +40,7 @@ def update_db(all_wavdata,db):
 
 def insert_db(all_wavdata,db):
 
-    for wavdata in all_wavdata:
+    for wavdata in tqdm(all_wavdata):
 
 
         db[1].execute("delete from audios WHERE md5sum='"  + str(wavdata[24]) +  "'")

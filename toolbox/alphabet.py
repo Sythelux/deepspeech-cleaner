@@ -472,7 +472,7 @@ def get_letters(lang_short,upper=False,show=False,minletters=0,allow_numbers=Fal
     if show == False:
         alphabet.append('#end')
         alphabet.append('\n')
-        f = open('languages/' + str(lang_short) + "/alphabet.txt", "w")
+        f = open('languages/' + str(lang_short) + "/alphabet.txt", "w", encoding='utf-8')
         f.write("\n".join(alphabet))
         f.close()
     if show == True:

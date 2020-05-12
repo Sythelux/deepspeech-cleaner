@@ -33,37 +33,36 @@ else
     build_binary=build_binary
 fi
 
+# trie deoesn't need to be generated anymore: https://discourse.mozilla.org/t/build-the-generate-trie-binary/54467/2
 
-if  [ -f  "$deepdir/native_client/generate_trie" ]
-then
-    generate="$deepdir/native_client/generate_trie"
-elif [ -f  "$deepdir/generate_trie" ]
-then
-    generate="$deepdir/generate_trie"
-else
-    if ! [ -x "$(command -v genereate_trie)" ]; then
-        echo 'genereate_trie not found' >&2
-        exit 1
-    fi    
-fi
-
+#if  [ -f  "$deepdir/native_client/generate_trie" ]
+#then
+#    generate="$deepdir/native_client/generate_trie"
+#elif [ -f  "$deepdir/generate_trie" ]
+#then
+#    generate="$deepdir/generate_trie"
+#else
+#    if ! [ -x "$(command -v generate_trie)" ]; then
+#        echo 'generate_trie not found' >&2
+#        exit 1
+#    fi
+#fi
 
 if [ "$type" = "1" ]
 then
     $lmplz --o 3 --text "$cleaner" --arpa "$words"
     $build_binary trie  -T -s  "$words" "$lm"
-    $generate
+    # $generate
 elif [ "$type" = "2" ]
 then
     $lmplz  --o 3 --text "$cleaner" --arpa "$words"
     $build_binary trie -q 16 -b 7 -a 64  "$words" "$lm"
-    $generate
+    # $generate
 elif [ "$type" = "3" ]
 then
     $lmplz --order 5 --memory 50% --prune 0 0 0 1 --text "$cleaner" --arpa "$words"
     $build_binary trie -q 8 -a 255 "$words" "$lm"
-    $generate "$alphabet" "$lm" "$trie"
-        
+    # $generate "$alphabet" "$lm" "$trie"
 fi
 
 

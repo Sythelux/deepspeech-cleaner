@@ -163,13 +163,13 @@ def extract_sentences(dump_root,language_path,minletters,append=True):
     counter = 0
     index = 0
 
-    new_file = open(language_path + "clean_raw",mode)
+    new_file = open(language_path + "clean_raw",mode, encoding='utf-8')
 
-    with open(dump_path, 'r') as f:
+    with open(dump_path, 'r', encoding='utf-8') as f:
         for text in f:
             counter += 1
 
-    with open(dump_path, 'r') as f:
+    with open(dump_path, 'r', encoding='utf-8') as f:
         for text in f:
             # splitting the sentences
             text = text.replace('!','!SPLITTSENTENCES').replace('.','.SPLITTSENTENCES').replace('?','?SPLITTSENTENCES').replace('¡','¡SPLITTSENTENCES'.replace('¿','¿SPLITTSENTENCES'))

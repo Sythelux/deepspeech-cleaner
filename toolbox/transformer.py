@@ -1,5 +1,7 @@
 import os
 import sox
+from tqdm import tqdm
+
 from . import tools, parser, inserter
 from multiprocessing import Pool
 
@@ -22,7 +24,7 @@ def convert_select(mode,corporas,autoreplace,convert_settings,trimm_settings):
 
         return array[0]
     elif array[0] == 'a':
-        query = "select wav_path,audios_id from audios"  
+        query = "select wav_path,audios_id,text from audios"
     else:
         for corp in select:
             if corp[0] == array[0]:
@@ -69,9 +71,6 @@ def convert_all(mode,cpus,db,convert_settings,trimm_settings):
         array = convert_select(mode,corporas,autoreplace,convert_settings,trimm_settings)
         if array == False or array == 'q':
             return False 
-        elif array == 'a':
-            query = "select wav_path,audios_id from audios"  
-            break
         elif array != 't' and array != 's' and array != 'r':
             query = array
             break
@@ -126,7 +125,7 @@ def convert_all(mode,cpus,db,convert_settings,trimm_settings):
 
 
         process_temp = []
-        for aud in audios[start:][:end]:
+        for aud in tqdm(audios[start:][:end]):
             if mode == 'convert':
                 process_temp.append([aud[1],aud[0],aud[2],convert_settings,[],[],autoreplace])
             elif mode == 'trimm':
@@ -198,9 +197,9 @@ def convert_prepare(inputs):
     all_results = []
     all_lines = len(raw)
     index = 0
-    for r in raw:
-        if index % 1000 == 0 and proc == 0:
-            tools.printer(0,'[' + str(round((index/all_lines)*100,2)) + '%]',)
+    for r in tqdm(raw, "thread: {0}".format(inputs[1]), unit="files", position=inputs[1], maxinterval=1000):
+        # if index % 1000 == 0 and proc == 0:
+        #     tools.printer(0,'[' + str(round((index/all_lines)*100,2)) + '%]',)
         if os.path.isfile(r[1]):
             oldpath = r[1] 
             newpath = '.back.'.join(str(r[1]).split('.')) 
