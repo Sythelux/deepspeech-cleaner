@@ -1,5 +1,15 @@
 # deepspeech-cleaner
 
+## Edit: Sythelux
+
+I try to upgrade this framework to DeepSpeech Version 0.7.x. Main changes currently are:
+ * there is no trie file required anymore.
+ * CommonVoice csv files seem to have a new csv format which needs integration.
+
+I also autoformated code, which makes this basically unable to push to the original repo.
+
+I will also focus more on German detection and will mainly try to get this to work.
+
 ## Multi-Language Dataset Cleaner/Combiner for [Mozilla's DeepSpeech Framework ](https://github.com/mozilla/DeepSpeech/) 
 
 #### makes the whole process of collecting,cleaning and sorting datasets alot easier
@@ -63,9 +73,9 @@ pip install -r requirements.txt
 
 
 ### Downloader
-##### download/analyze/insert all available corpora for french
+##### download/analyze/insert all available corpora for german
 ```
-python3 deepspeech-cleaner.py download --lang fr
+python3 deepspeech-cleaner.py download --lang de
 
 ```
 
@@ -86,14 +96,14 @@ python3 deepspeech-cleaner.py create
 ```
 ##### clean/sort/create all necessary files for training - no cleaning and no lm.binary/trie creation
 ```
-python3 deepspeech-cleaner.py create --noclean --notrie
+python3 deepspeech-cleaner.py create --noclean True --notrie True
 
 ```
 
 
 ##### start deepspeech training 
 ```
-bash languages/fr/training/standard/start_train.sh
+bash languages/de/training/standard/start_train.sh
 ```
 
 
